@@ -11,12 +11,12 @@ import (
 	"github.com/ignite/cli/ignite/services/plugin"
 )
 
-type p struct{}
+type app struct{}
 
-func (p) Manifest(ctx context.Context) (*plugin.Manifest, error) {
+func (app) Manifest(context.Context) (*plugin.Manifest, error) {
 	return &plugin.Manifest{
 		Name: "example-plugin",
-		// Add commands here
+		// TODO: Add commands here
 		Commands: []*plugin.Command{
 			// Example of a command
 			{
@@ -28,11 +28,11 @@ func (p) Manifest(ctx context.Context) (*plugin.Manifest, error) {
 				},
 				PlaceCommandUnder: "ignite",
 				// Examples of adding subcommands:
-				// Commands: []*plugin.Command{
-				// 	{Use: "add"},
-				// 	{Use: "list"},
-				// 	{Use: "delete"},
-				// },
+				Commands: []*plugin.Command{
+					{Use: "add"},
+					{Use: "list"},
+					{Use: "delete"},
+				},
 			},
 		},
 		// Add hooks here
@@ -40,7 +40,7 @@ func (p) Manifest(ctx context.Context) (*plugin.Manifest, error) {
 	}, nil
 }
 
-func (p) Execute(ctx context.Context, cmd *plugin.ExecutedCommand) error {
+func (app) Execute(ctx context.Context, cmd *plugin.ExecutedCommand, api plugin.ClientAPI) error {
 	// TODO: write command execution here
 	fmt.Printf("Hello I'm the example-plugin plugin\n")
 	fmt.Printf("My executed command: %q\n", cmd.Path)
@@ -57,6 +57,9 @@ func (p) Execute(ctx context.Context, cmd *plugin.ExecutedCommand) error {
 
 	// This is how the plugin can access the chain:
 	// c, err := getChain(cmd)
+	// if err != nil {
+	// 	return err
+	// }
 
 	// According to the number of declared commands, you may need a switch:
 	switch cmd.Use {
@@ -67,20 +70,24 @@ func (p) Execute(ctx context.Context, cmd *plugin.ExecutedCommand) error {
 	case "delete":
 		fmt.Println("Deleting stuff...")
 	}
+
+	// ClientAPI call example
+	fmt.Println(api.GetChainInfo(ctx))
+
 	return nil
 }
 
-func (p) ExecuteHookPre(ctx context.Context, h *plugin.ExecutedHook) error {
+func (app) ExecuteHookPre(_ context.Context, h *plugin.ExecutedHook, _ plugin.ClientAPI) error {
 	fmt.Printf("Executing hook pre %q\n", h.Hook.GetName())
 	return nil
 }
 
-func (p) ExecuteHookPost(ctx context.Context, h *plugin.ExecutedHook) error {
+func (app) ExecuteHookPost(_ context.Context, h *plugin.ExecutedHook, _ plugin.ClientAPI) error {
 	fmt.Printf("Executing hook post %q\n", h.Hook.GetName())
 	return nil
 }
 
-func (p) ExecuteHookCleanUp(ctx context.Context, h *plugin.ExecutedHook) error {
+func (app) ExecuteHookCleanUp(_ context.Context, h *plugin.ExecutedHook, _ plugin.ClientAPI) error {
 	fmt.Printf("Executing hook cleanup %q\n", h.Hook.GetName())
 	return nil
 }
@@ -109,7 +116,7 @@ func main() {
 	hplugin.Serve(&hplugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig(),
 		Plugins: map[string]hplugin.Plugin{
-			"example-plugin": plugin.NewGRPC(&p{}),
+			"example-plugin": plugin.NewGRPC(&app{}),
 		},
 		GRPCServer: hplugin.DefaultGRPCServer,
 	})
