@@ -1,10 +1,10 @@
 module example-plugin
 
-go 1.21.0
+go 1.21.1
 
 require (
 	github.com/hashicorp/go-plugin v1.5.1
-	github.com/ignite/cli v0.27.2
+	github.com/ignite/cli v0.27.2-0.20231110144902-718f27cb581d
 )
 
 require (
@@ -46,10 +46,10 @@ require (
 	github.com/dgraph-io/badger/v2 v2.2007.4 // indirect
 	github.com/dgraph-io/ristretto v0.1.1 // indirect
 	github.com/dgryski/go-farm v0.0.0-20200201041132-a6ae2369ad13 // indirect
-	github.com/docker/docker v24.0.1+incompatible // indirect
+	github.com/docker/docker v24.0.7+incompatible // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/dvsekhvalnov/jose2go v1.5.0 // indirect
-	github.com/emicklei/proto v1.11.2 // indirect
+	github.com/emicklei/proto v1.12.1 // indirect
 	github.com/emicklei/proto-contrib v0.14.0 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
 	github.com/fatih/color v1.15.0 // indirect
@@ -97,8 +97,9 @@ require (
 	github.com/hdevalence/ed25519consensus v0.1.0 // indirect
 	github.com/huandu/skiplist v1.2.0 // indirect
 	github.com/iancoleman/strcase v0.2.0 // indirect
-	github.com/ignite/ignite-files/nodetime v0.0.1 // indirect
-	github.com/ignite/web v0.4.3 // indirect
+	github.com/ignite/ignite-files/nodetime v0.0.2 // indirect
+	github.com/ignite/ignite-files/protoc v0.0.1 // indirect
+	github.com/ignite/web v0.5.1 // indirect
 	github.com/imdario/mergo v0.3.15 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
@@ -173,7 +174,7 @@ require (
 	golang.org/x/tools v0.9.1 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
-	google.golang.org/grpc v1.55.0 // indirect
+	google.golang.org/grpc v1.56.3 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
